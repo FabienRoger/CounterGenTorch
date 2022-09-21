@@ -1,9 +1,6 @@
 from typing import Any, Dict, Tuple
 import torch
 from torch import nn
-import numpy as np
-from countergen.editing.activation_ds import ActivationsDataset
-from tqdm import tqdm  # type: ignore
 
 from countergen.config import VERBOSE
 from countergen.tools.utils import maybe_tqdm

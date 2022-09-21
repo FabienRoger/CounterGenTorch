@@ -6,11 +6,10 @@ from typing import Any, Dict, List, Optional
 import numpy as np
 import torch
 from countergen.config import VERBOSE
-from countergen.editing.activation_ds import ActivationsDataset
-from countergen.editing.models import fit_model, get_bottlenecked_linear, get_bottlenecked_mlp
-from countergen.tools.math_utils import orthonormalize
+from countergentorch.editing.activation_ds import ActivationsDataset
+from countergentorch.editing.models import fit_model, get_bottlenecked_linear, get_bottlenecked_mlp
+from countergentorch.tools.math_utils import orthonormalize
 from countergen.tools.utils import maybe_tqdm, unwrap_or
-from torch import nn
 from torch.optim import SGD
 from torchmetrics import HingeLoss
 from tqdm import tqdm  # type: ignore

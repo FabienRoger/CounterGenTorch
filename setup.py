@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 """
 To upload the package, run
 python setup.py sdist
-twine upload --repository-url https://upload.pypi.org/legacy/ dist/countergen-VERSION.tar.gz
+twine upload --repository-url https://upload.pypi.org/legacy/ dist/countergentorch-VERSION.tar.gz
 """
 
 HERE = pathlib.Path(__file__).parent

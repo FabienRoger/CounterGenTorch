@@ -3,7 +3,7 @@ from typing import Dict, Iterable, List, Mapping
 import torch
 from attrs import define
 from torch import nn
-from countergen.editing.activation_utils import get_corresponding_activations
+from countergentorch.editing.activation_utils import get_corresponding_activations
 
 from countergen.types import AugmentedSample, Category
 

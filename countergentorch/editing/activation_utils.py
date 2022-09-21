@@ -2,11 +2,11 @@ from collections import defaultdict
 from typing import Callable, Dict, Iterable, List, Mapping, Optional
 
 import torch
+from countergen.tools.utils import unwrap_or
+from countergen.types import AugmentedSample, Category
+from countergentorch.tools.utils import get_gpt_tokenizer
 from torch import nn
 from transformers import BatchEncoding, GPT2LMHeadModel
-from countergen.types import AugmentedSample, Category
-
-from countergen.tools.utils import get_gpt_tokenizer, unwrap_or
 
 
 def get_mlp_modules(model: GPT2LMHeadModel, layer_numbers: Optional[List[int]]) -> Dict[str, nn.Module]:
