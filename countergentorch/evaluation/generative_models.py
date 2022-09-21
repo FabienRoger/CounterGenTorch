@@ -1,8 +1,6 @@
-from functools import lru_cache
 from math import exp
 from typing import TYPE_CHECKING, Callable, Sequence, List, Optional, Tuple
 
-import openai
 import torch
 from countergen.tools.math_utils import perplexity
 from countergen.tools.utils import concat_dicts, get_device, get_gpt_tokenizer, remove_last_tok, unwrap_or
@@ -30,38 +28,6 @@ def pt_to_generative_model(model: torch.nn.Module) -> GenerativeModel:
         token_outs = [tokenizer(o, return_tensors="pt").to(model.device) for o in out]
 
         return get_correct_logprobs(tokens_inp, token_outs, model)
-
-    return gen_model
-
-
-def api_to_generative_model(openai_engine: str = "text-ada-001") -> GenerativeModel:
-    """Make a GenerativeModel that uses the openai api.
-
-    The GenerativeModel costs ~ len(input) * (sum of len(ouput)) tokens per call."""
-
-    def gen_model(inp: Input, out: Outputs) -> List[List[float]]:
-        correct_log_probs_list = []
-        for o in out:
-            completion = openai.Completion.create(
-                engine=openai_engine,
-                prompt=inp + o,
-                max_tokens=1,
-                stream=False,
-                echo=True,
-                logprobs=5,
-            )["choices"][0]
-
-            token_logprobs = completion["logprobs"]["token_logprobs"]
-            token_offsets = completion["logprobs"]["text_offset"]
-
-            # Compute which tokens correspond to the output
-            # If token from input & output got merged (which should happen very rarely),
-            # takes into account the proability of the merged token.
-            n_toks = len(token_offsets)
-            start_of_output = max([i for i in range(n_toks) if token_offsets[i] <= len(inp)])
-
-            correct_log_probs_list.append(token_logprobs[start_of_output:])
-        return correct_log_probs_list
 
     return gen_model
 
