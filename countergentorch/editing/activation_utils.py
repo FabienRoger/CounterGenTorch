@@ -11,15 +11,15 @@ from transformers import BatchEncoding, GPT2LMHeadModel
 
 def get_mlp_modules(model: GPT2LMHeadModel, layer_numbers: Optional[List[int]]) -> Dict[str, nn.Module]:
     model_transformer: nn.ModuleList = model.transformer.h  # type: ignore
-    layer_numbers = unwrap_or(layer_numbers, list(range(len(model_transformer))))
-    names = [f"transformer.h.{n}.mlp" for n in layer_numbers]
+    layer_numbers_ = unwrap_or(layer_numbers, list(range(len(model_transformer))))
+    names = [f"transformer.h.{n}.mlp" for n in layer_numbers_]
     return {name: model.get_submodule(name) for name in names}  # type: ignore
 
 
 def get_res_modules(model: GPT2LMHeadModel, layer_numbers: Optional[List[int]]) -> Dict[str, nn.Module]:
     model_transformer: nn.ModuleList = model.transformer.h  # type: ignore
-    layer_numbers = unwrap_or(layer_numbers, list(range(len(model_transformer))))
-    names = [f"transformer.h.{n}" for n in layer_numbers]
+    layer_numbers_ = unwrap_or(layer_numbers, list(range(len(model_transformer))))
+    names = [f"transformer.h.{n}" for n in layer_numbers_]
     return {name: model.get_submodule(name) for name in names}  # type: ignore
 
 

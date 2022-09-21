@@ -181,9 +181,9 @@ def rlace(
     y_torch = ds.y_data.to(device)
     X_np = X_torch.numpy()
     y_np = y_torch.numpy()
-    dev_ds = unwrap_or(dev_ds, ds)
-    X_dev_np = dev_ds.x_data.numpy()
-    y_dev_np = dev_ds.y_data.numpy()
+    dev_ds_ = unwrap_or(dev_ds, ds)
+    X_dev_np = dev_ds_.x_data.numpy()
+    y_dev_np = dev_ds_.y_data.numpy()
 
     num_labels = len(set(y_np.tolist()))
     if num_labels == 2:
